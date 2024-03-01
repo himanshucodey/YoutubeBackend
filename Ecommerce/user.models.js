@@ -1,5 +1,4 @@
 import moongoose from "mongoose";
-// user schema
 const userSchema =new moongoose.Schema({
     username:{
         type : String,
