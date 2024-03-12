@@ -6,13 +6,13 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
 
-
+//user ki id se find krke toekn generate krlega
 const generateAccessAndRefereshTokens = async(userId) =>{
     try {
         const user = await User.findById(userId)
         const accessToken = user.generateAccessToken()
         const refreshToken = user.generateRefreshToken()
-
+//refresh token hme db m bhi save krna hota h kyuki bar bar login na krvana pde
         user.refreshToken = refreshToken
         await user.save({ validateBeforeSave: false })
 
@@ -165,6 +165,7 @@ const logoutUser = asyncHandler(async(req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
         {
+            //$set update krdega {} object m 
             $unset: {
                 refreshToken: 1 // this removes the field from document
             }
